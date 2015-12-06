@@ -1,4 +1,16 @@
 require 'kramdown'
+require 'redcarpet'
+require 'pygments'
+
+class MyRender < Redcarpet::Render::Safe
+  def block_code(code, language)
+    if language then
+      Pygments.highlight(code, lexer: language)
+    else
+      "<pre class='default'><code>#{html_escape(code)}</code></pre>"
+    end
+  end
+end
 
 class ArticlesController < ApplicationController
 
@@ -50,6 +62,7 @@ class ArticlesController < ApplicationController
           @articles.push article
         end
       end
+      @articles.sort_by!{|a| a[:timestamp]}.reverse!
     end 
   end
 
@@ -69,7 +82,8 @@ class ArticlesController < ApplicationController
 
   def md_to_html(md)
     md = md.gsub(/{%.*?%}/, '')
-    Kramdown::Document.new(md).to_html
+    #Kramdown::Document.new(md).to_html
+    Redcarpet::Markdown.new(MyRender, fenced_code_blocks: true).render(md)
   end
 
 end
