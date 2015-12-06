@@ -1,3 +1,4 @@
 [submodule "blogs"]
 	path = blogs
 	url = https://github.com/mikewei/blogs.git
+  branch = master
