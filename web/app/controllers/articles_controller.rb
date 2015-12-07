@@ -24,8 +24,14 @@ class ArticlesController < ApplicationController
       article = { id: $1, month: $2, name: $3, type: $4 }
 
       path.open("r") do |f|
-        head, body = parse_file(f)
-        article[:attr] = parse_yaml(head)
+        htype, head, body = parse_file(f)
+        if htype == :yaml then
+          article[:attr] = parse_yaml(head)
+        elsif htype == :free then
+          article[:attr] = parse_free(head)
+        else
+          next
+        end
 
         count = @categories[article[:attr]['category']]
         if count == nil
@@ -72,12 +78,28 @@ class ArticlesController < ApplicationController
   private
 
   def parse_file(f)
-    f.read =~ /^(---\n.*?\n)---\n(.*)$/m
-    return $1, $2
+    fc = f.read
+    if fc =~ /\A(---\n.*?\n)---\n(.*)\Z/m then
+      return :yaml, $1, $2
+    elsif fc =~ /\A(#.*?)\n\n(.*)\Z/m then
+      return :free, $1, $2
+    else
+      return :bad, nil, nil
+    end
   end
 
   def parse_yaml(h)
     YAML::load(h)
+  end
+
+  def parse_free(h)
+    attrs = {'title' => 'ERROR', 'category' => 'ERROR', 'time' => nil}
+    if h =~ /\A#+\s*(.+?)\n\s*\[(.+?)\]\s*\[(.+?)\]\s*\Z/m then
+      attrs['title'] = $1.strip
+      attrs['category'] = $2.strip
+      attrs['time'] = $3.strip
+    end
+    attrs
   end
 
   def md_to_html(md)
