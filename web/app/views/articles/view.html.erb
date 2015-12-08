@@ -1,0 +1,35 @@
+<%= render partial:'share/head' %>
+
+<div id="content">
+
+  <div id="blogs">
+    <% if @tips %>
+      <div id="tips"><%= @tips %></div>
+    <% end %>
+    <div id="blog"> 
+   	  <h1><%= @article[:attr]['title'] %></h1>
+      <h2>By mikewei on <%= @article[:timestamp] %></h2>
+      <div id="text"><%= @article[:text][:html].html_safe %></div>
+    </div>
+  </div>
+
+  <div id="info">
+    <%= image_tag('me.jpg', id:'photo') %>
+    <div id="contact">
+      <p class="section">Contact Info</p>
+      <p>mikewei (韦彬)</p>
+      <p>互联网后台资深工程师/架构师</p>
+      <p>曾先后就职于腾讯，小米</p>
+      <p>Email: bin@vip.qq.com</p>
+    </div>
+    <div id="category">
+      <p class="section">Categories</p>
+      <% @categories.each do |category, count| %>
+        <ul><%= link_to("#{category} [ #{count} ]", root_path(cat: category)) %></ul>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
+<%= render partial:'share/tail' %>
