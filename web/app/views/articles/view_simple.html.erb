@@ -1,7 +1,12 @@
+<% @page_title = @article[:attr]['title'] %>
 <div id="mobile_page">
   <div id="blog"> 
     <h1><%= @article[:attr]['title'] %></h1>
     <h2>By mikewei on <%= @article[:timestamp] %></h2>
     <div id="text"><%= @article[:text][:html].html_safe %></div>
+  </div>
+  <div id="tail">
+    <a href="/"><%= image_tag('logo.png', id:'logo') %></a>
+    <div>&copy; mikewei 2015-2016</div>
   </div>
 </div>

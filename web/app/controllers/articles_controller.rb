@@ -14,6 +14,11 @@ end
 
 class ArticlesController < ApplicationController
 
+  def initialize
+    super
+    @page_title = 'CodingINET'
+  end
+
   def index
     @articles = Array.new
     @categories = Hash.new

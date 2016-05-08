@@ -91,20 +91,20 @@ hr {
 #blog #text {
 	font-size: 1.4em;
 	line-height: 1.5;
-	margin: 2em auto;
+	margin: 1em auto;
 }
 #blog pre {
 	font-size: 1.2em;
 	line-height: 1.3;
-	margin: 0.5em 3em;
+	margin: 0.5em 30px;
 	padding: 0.5em 0.8em;
 }
 #blog pre.default {
 	background-color: #eee;
 }
 #mobile_page {
-  font-size: 2em;
-	margin: 1em 2em;
+  font-size: 2.8em;
+	margin: 1em 1em;
 }
 #info {
 	float: left;
@@ -137,5 +137,9 @@ hr {
 	text-align: center;
 	font-size: 1.2em;
 	color: #888;
-	margin: 2em auto;
+	margin: 1em auto;
 }
+#mobile_page #tail #logo {
+  height: 1.6em;
+}
+
