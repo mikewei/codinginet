@@ -88,10 +88,20 @@ hr {
 	margin: 0.5em auto;
 	padding: 0.1em 0.3em;
 }
+#blog h3 {
+	font-size: 1.4em;
+}
+#blog h4 {
+	font-size: 1.2em;
+}
 #blog #text {
 	font-size: 1.4em;
 	line-height: 1.5;
 	margin: 1em auto;
+}
+#blog p code {
+	font-size: 1.2em;
+	font-weight: bold;
 }
 #blog pre {
 	font-size: 1.2em;
