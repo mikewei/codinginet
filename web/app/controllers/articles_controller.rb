@@ -16,7 +16,7 @@ class ArticlesController < ApplicationController
 
   def initialize
     super
-    @page_title = 'CodingINET'
+    @page_title = 'CodingINET.com'
   end
 
   def index
