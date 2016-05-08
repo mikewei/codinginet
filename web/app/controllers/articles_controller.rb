@@ -45,7 +45,7 @@ class ArticlesController < ApplicationController
   def view
     print "view #{params[:id]}\n"
     @categories = Hash.new
-    Pathname.glob('../blogs/*') do |path|
+    Pathname.glob('../blogs/*.md') do |path|
       article = parse_article(path)
       next if (article == nil)
 
