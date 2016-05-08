@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
     @articles = Array.new
     @categories = Hash.new
     Pathname.glob('../blogs/*.md') do |path|
-      article = parse_article(path)
+      article = parse_article(path, 20)
       next if (article == nil)
 
       count_categories(article, @categories)
@@ -46,7 +46,7 @@ class ArticlesController < ApplicationController
     print "view #{params[:id]}\n"
     @categories = Hash.new
     Pathname.glob('../blogs/*.md') do |path|
-      article = parse_article(path)
+      article = parse_article(path, -1)
       next if (article == nil)
 
       count_categories(article, @categories)
@@ -71,7 +71,7 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def parse_article(path)
+  def parse_article(path, min_lines)
     fn = path.basename.to_s
     fn =~ /^((\d{6})-([^.]+))\.(\w+)$/
     article = { id: $1, month: $2, name: $3, type: $4 }
@@ -93,9 +93,14 @@ class ArticlesController < ApplicationController
         article[:timestamp] = Time.parse(est_time)
       end
 
+      if min_lines > 0 then
+        body, is_truncated = truncate_lines(body, min_lines)
+      end
+
       article[:text] = Hash.new
       article[:text][:md] = body
       article[:text][:html] = md_to_html(body)
+      article[:text][:is_truncated] = is_truncated
       return article
     end
     return nil
@@ -124,6 +129,19 @@ class ArticlesController < ApplicationController
       attrs['time'] = $3.strip
     end
     attrs
+  end
+
+  def truncate_lines(body, min_lines)
+    lines = body.lines;
+    if lines.count <= min_lines then
+      return body, false
+    end
+    for i in min_lines...lines.count do
+      if lines[i][0] != "\n" and lines[i-1][0] == "\n" then
+        return lines[0...i].join, true
+      end
+    end
+    return body, false
   end
 
   def md_to_html(md)

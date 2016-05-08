@@ -11,6 +11,9 @@
         <h1><%= article[:attr]['title'] %></h1>
         <h2>By mikewei on <%= article[:timestamp] %> <%= link_to("[+]", "/articles/view/#{article[:id]}?simple=1") %></h2>
         <div id="text"><%= article[:text][:html].html_safe %></div>
+        <% if article[:text][:is_truncated] then %>
+           <div id="more"><%= link_to("阅读全文>>", "/articles/view/#{article[:id]}") %></div>
+        <% end %>
       </div>
     <% end %>
   </div>

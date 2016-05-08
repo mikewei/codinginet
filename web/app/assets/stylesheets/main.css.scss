@@ -75,6 +75,7 @@ hr {
 	text-align: left;
 	border-bottom: 1px solid #ccc;
 	margin: 0 0 3em 0;
+  padding: 0 0 2em 0;
 }
 #blog h1 {
 	font-size: 2.0em;
@@ -100,6 +101,10 @@ hr {
 	font-size: 1.4em;
 	line-height: 1.6;
 	margin: 1em auto;
+}
+#blog #more {
+	font-size: 1.4em;
+	line-height: 1.6;
 }
 #blog img {
 	margin: 0.5em 30px;
