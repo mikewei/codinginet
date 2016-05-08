@@ -22,7 +22,7 @@ class ArticlesController < ApplicationController
   def index
     @articles = Array.new
     @categories = Hash.new
-    Pathname.glob('../blogs/*') do |path|
+    Pathname.glob('../blogs/*.md') do |path|
       article = parse_article(path)
       next if (article == nil)
 
