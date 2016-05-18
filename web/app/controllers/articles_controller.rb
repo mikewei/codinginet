@@ -23,7 +23,7 @@ class ArticlesController < ApplicationController
     @articles = Array.new
     @categories = Hash.new
     Pathname.glob('../blogs/*.md') do |path|
-      article = parse_article(path, 20)
+      article = parse_article(path, 15)
       next if (article == nil)
 
       count_categories(article, @categories)
