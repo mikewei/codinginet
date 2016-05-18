@@ -8,7 +8,7 @@
     <% end %>
     <div id="blog"> 
    	  <h1><%= @article[:attr]['title'] %></h1>
-      <h2>By mikewei on <%= @article[:timestamp] %></h2>
+      <h2>By mikewei at <%= @article[:timestamp].strftime("%Y-%m-%d %H:%M") %> 阅读(<%= @article[:row].pv %>)</h2>
       <div id="text"><%= @article[:text][:html].html_safe %></div>
     </div>
   </div>
