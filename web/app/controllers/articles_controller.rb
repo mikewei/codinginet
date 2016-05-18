@@ -55,8 +55,19 @@ class ArticlesController < ApplicationController
     end 
     if @article == nil then
       render :nothing => true, :status => 404
-    elsif params[:simple] then
-      render 'view_simple'
+    else
+      row = Article.where("name = ?", @article[:id]).first
+      if row == nil then
+        row = Article.new
+        row.name = @article[:id]
+        row.pv = 0
+      end
+      row.pv = row.pv + 1
+      row.save
+      @article[:row] = row
+      if params[:simple] then
+        render 'view_simple'
+      end
     end
   end
 
@@ -86,12 +97,12 @@ class ArticlesController < ApplicationController
         return nil
       end
 
-      if article[:attr]['time']
-        article[:timestamp] = article[:attr]['time']
+      if article[:attr]['time'] then
+        est_time = article[:attr]['time']
       else
         est_time = article[:month].gsub(/^(....)(..)$/, '\1-\2-01 18:00 +0800')
-        article[:timestamp] = Time.parse(est_time)
       end
+      article[:timestamp] = Time.parse(est_time.to_s)
 
       if min_lines > 0 then
         body, is_truncated = truncate_lines(body, min_lines)
