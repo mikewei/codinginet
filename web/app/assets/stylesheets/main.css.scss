@@ -90,11 +90,11 @@ hr {
 	padding: 0.1em 0.3em;
 }
 #blog h3 {
-	margin: 0.5em auto;
+	margin: 1.5em auto 0.6em auto;
 	font-size: 1.4em;
 }
 #blog h4 {
-	margin: 0.5em auto;
+	margin: 1.5em auto 0.6em auto;
 	font-size: 1.2em;
 }
 #blog #text {
@@ -124,6 +124,12 @@ hr {
 }
 #blog pre.default {
 	background-color: #eee;
+}
+#blog ul {
+	margin: 0 0 0.6em 1.2em;
+}
+#blog ol {
+	margin: 0 0 0.6em 1.2em;
 }
 #mobile_page {
   font-size: 2.8em;
