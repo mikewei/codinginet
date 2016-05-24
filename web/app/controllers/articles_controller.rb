@@ -45,6 +45,7 @@ class ArticlesController < ApplicationController
   def view
     print "view #{params[:id]}\n"
     @categories = Hash.new
+    @page_flags = Hash.new
     Pathname.glob('../blogs/*.md') do |path|
       article = parse_article(path, -1)
       next if (article == nil)
@@ -66,6 +67,7 @@ class ArticlesController < ApplicationController
       row.save
       @article[:row] = row
       if params[:simple] then
+	@page_flags[:simple_mode] = true
         render 'view_simple'
       end
     end
