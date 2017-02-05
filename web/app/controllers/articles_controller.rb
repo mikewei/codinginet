@@ -160,7 +160,7 @@ class ArticlesController < ApplicationController
   def md_to_html(md)
     md = md.gsub(/{%.*?%}/, '')
     #Kramdown::Document.new(md).to_html
-    Redcarpet::Markdown.new(MyRender, fenced_code_blocks: true).render(md)
+    Redcarpet::Markdown.new(MyRender, fenced_code_blocks: true, tables: true).render(md)
   end
 
 end
